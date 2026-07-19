@@ -26,10 +26,10 @@ for the full release runbook).
 | Package | Version | Install | Description |
 | --- | --- | --- | --- |
 | `@adaptivemcp/spec` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/spec)](https://www.npmjs.com/package/@adaptivemcp/spec) `0.1.1` | `npm i @adaptivemcp/spec` | Extension identifiers (`dev.adaptivemcp/` reversed-domain namespace), event schemas, and shared types. |
-| `@adaptivemcp/memory` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/memory)](https://www.npmjs.com/package/@adaptivemcp/memory) `0.2.1` | `npm i @adaptivemcp/memory` | Persistent operational knowledge backed by SQLite (`node:sqlite`), the SSOT. |
+| `@adaptivemcp/memory` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/memory)](https://www.npmjs.com/package/@adaptivemcp/memory) `0.2.1` | `npm i @adaptivemcp/memory` | Persistent operational knowledge backed by SQLite (`node:sqlite`), the store. |
 | `@adaptivemcp/telemetry` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/telemetry)](https://www.npmjs.com/package/@adaptivemcp/telemetry) `0.1.1` | `npm i @adaptivemcp/telemetry` | Tool execution events and observability (recorder + memory-backed store). |
 | `@adaptivemcp/evaluation` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/evaluation)](https://www.npmjs.com/package/@adaptivemcp/evaluation) `0.2.1` | `npm i @adaptivemcp/evaluation` | Outcome scoring and feedback loops; emits `observed_failure_rate` / `avg_duration_ms` insights. |
-| `@adaptivemcp/extension` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/extension)](https://www.npmjs.com/package/@adaptivemcp/extension) `0.2.1` | `npm i @adaptivemcp/extension` | Derives the YAML `tools-metadata` view from the SSOT and serves it as the `dev.adaptivemcp/tools-metadata` MCP resource. |
+| `@adaptivemcp/extension` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/extension)](https://www.npmjs.com/package/@adaptivemcp/extension) `0.2.1` | `npm i @adaptivemcp/extension` | Derives the YAML `tools-metadata` view from the store and serves it as the `dev.adaptivemcp/tools-metadata` MCP resource. |
 
 ## Private (not published)
 
@@ -50,7 +50,7 @@ runnable demos, not libraries.
 | Package | Responsibility |
 | --- | --- |
 | `@adaptivemcp/spec` | Extension identifiers (`dev.adaptivemcp/` reversed-domain namespace), event schemas, shared types |
-| `@adaptivemcp/memory` | SQLite SSOT store (`MemoryStore`) over `node:sqlite` |
+| `@adaptivemcp/memory` | SQLite store (`MemoryStore`) over `node:sqlite` |
 | `@adaptivemcp/telemetry` | `TelemetryRecorder` + memory-backed store + stat queries |
 | `@adaptivemcp/evaluation` | `Evaluator` emits `observed_failure_rate` / `avg_duration_ms` insights |
 | `@adaptivemcp/extension` | `ExtensionController` derives + writes the YAML view and exposes the MCP resource |

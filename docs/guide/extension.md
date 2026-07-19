@@ -62,4 +62,4 @@ server.registerResource("tools-metadata", "dev.adaptivemcp/tools-metadata", {
 Because the resource is registered through the standard MCP resource mechanism,
 any host that does not understand `dev.adaptivemcp/` simply ignores it. Clients
 that do understand it read the YAML, apply the learned metadata, and report
-observations back into their local SSOT. No changes to MCP itself are required.
+observations back into their local store. No changes to MCP itself are required.

@@ -36,7 +36,7 @@ pnpm install
 pnpm -r run build      # compile all packages + examples
 ```
 
-## See the adaptation loop in one command
+## Adaptation loop
 
 The whole loop (observe, evaluate, derive view) runs locally with no server
 or transport. From the repo root:
@@ -56,7 +56,7 @@ import { TelemetryRecorder, MemoryBackedTelemetryStore } from "@adaptivemcp/tele
 import { Evaluator } from "@adaptivemcp/evaluation";
 import { ExtensionController } from "@adaptivemcp/extension";
 
-const memory = new MemoryStore();                                   // SQLite SSOT
+const memory = new MemoryStore();                                   // SQLite store
 const telemetry = new TelemetryRecorder({ store: new MemoryBackedTelemetryStore(memory) });
 const evaluator = new Evaluator({ memory });
 const extension = new ExtensionController({ memory, yamlPath: "tools-metadata.yaml" });
@@ -64,8 +64,8 @@ const extension = new ExtensionController({ memory, yamlPath: "tools-metadata.ya
 for (let i = 0; i < 20; i++) {
   telemetry.complete({ toolName: "deploy_service", serverName: "demo" }, { durationMs: 900 });
 }
-evaluator.evaluateAll();   // SSOT stats → insights → SSOT
-extension.sync();          // SSOT → tools-metadata.yaml (and the MCP resource text)
+evaluator.evaluateAll();   // store stats → insights → store
+extension.sync();          // store → tools-metadata.yaml (and the MCP resource text)
 console.log(extension.resourceText());
 ```
 
@@ -73,7 +73,7 @@ console.log(extension.resourceText());
 
 The pieces below are small, self-contained snippets you can drop into a script
 or REPL. They all share the same four building blocks: a `MemoryStore` (the
-SQLite SSOT), a `TelemetryRecorder` (observe), an `Evaluator` (learn), and an
+SQLite store), a `TelemetryRecorder` (observe), an `Evaluator` (learn), and an
 `ExtensionController` (derive the view).
 
 ### Observe a tool call
@@ -101,7 +101,7 @@ telemetry.complete(
 import { Evaluator } from "@adaptivemcp/evaluation";
 
 const evaluator = new Evaluator({ memory });
-evaluator.evaluateAll();   // folds raw stats into insights in the SSOT
+evaluator.evaluateAll();   // folds raw stats into insights in the store
 ```
 
 ### Route to the cheapest viable model
@@ -117,7 +117,7 @@ const router = new Router({
   ],
   budget: { perToolLimit: 0.05 },
 });
-router.routeAll();   // writes `model` + `routing` recommendations to the SSOT
+router.routeAll();   // writes `model` + `routing` recommendations to the store
 ```
 
 ### Gate a planned tool call
@@ -137,7 +137,7 @@ const decision = approval.gate("deploy_service");
 import { ExtensionController } from "@adaptivemcp/extension";
 
 const extension = new ExtensionController({ memory, yamlPath: "tools-metadata.yaml" });
-extension.sync();                 // SSOT → tools-metadata.yaml
+extension.sync();                 // store → tools-metadata.yaml
 console.log(extension.resourceText());   // the MCP resource text
 ```
 
@@ -174,7 +174,7 @@ pnpm server     # or start the server alone (blocks on stdio)
 ```bash
 cd examples
 pnpm scenario            # improvement over time (healthy → flaky → fixed)
-pnpm scenario:ssot       # SSOT is the source of truth; YAML is derived
+pnpm scenario:store       # the store holds the metadata; YAML is derived
 pnpm scenario:insights   # telemetry → evaluation → insights
 pnpm scenario:annotation # human annotation vs. learned insight
 pnpm scenario:adaptive   # full stack: routing + orchestration + approval + thin-client

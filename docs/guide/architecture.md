@@ -1,5 +1,5 @@
 ---
-description: How Adaptive MCP learns tool behavior from real signal — the event → MemoryStore (SSOT) → derived YAML view loop, and its design constraints.
+description: How Adaptive MCP learns tool behavior from real signal — the event → MemoryStore → derived YAML view loop, and its design constraints.
 ---
 
 # Architecture
@@ -13,18 +13,18 @@ introduce new protocol abstractions.
 ```mermaid
 flowchart TD
     ToolExec["Tool execution (MCP server)"] --> Telemetry
-    Telemetry -->|records event| Memory["MemoryStore (SQLite SSOT)"]
+    Telemetry -->|records event| Memory["MemoryStore (SQLite)"]
     Memory --> Eval["Evaluation"]
     Eval -->|insights| Memory
     Telemetry --> Ext["ExtensionController"]
     Memory --> Ext
     Eval --> Ext
-    Ext -->|reads SSOT| YAML["tools-metadata.yaml (derived view)"]
+    Ext -->|reads the store| YAML["tools-metadata.yaml (derived view)"]
     Ext --> Resource["MCP resource: dev.adaptivemcp/tools-metadata"]
 ```
 
-Data always flows in one direction: **event → MemoryStore (SSOT) → derived
-YAML view**. The YAML is never edited directly; it is recomputed from the SSOT
+Data always flows in one direction: **event → MemoryStore → derived
+YAML view**. The YAML is never edited directly; it is recomputed from the store
 whenever metadata changes.
 
 ## Design constraints
@@ -117,14 +117,14 @@ human-readable projection consumed by out-of-band MCP clients.
   ≥ `flakyFailureRate`, default 0.2, after `minInvocations`), else `allow`.
   Writes an `approval` recommendation with `payload: { decision }`.
 - **Thin client** (`ThinClient.run`): consults the gate, then executes with the
-  SSOT-derived retry policy (or default). Records the outcome back to the SSOT.
+  store-derived retry policy (or default). Records the outcome back to the store.
 
 ## `AdaptiveRuntime`
 
 `AdaptiveRuntime` wires every package into a single transport-agnostic runtime:
 
 ```text
-tool call -> telemetry -> MemoryStore (SSOT) -> evaluation -> insights
+tool call -> telemetry -> MemoryStore -> evaluation -> insights
                                                    -> routing       -> recommendations
                                                    -> orchestration -> recommendations
                                                    -> approval      -> gate + recommendation

@@ -17,7 +17,7 @@ hero:
 features:
   - title: A learning layer, not a new protocol
     details: Adaptive MCP observes how MCP tools are actually used and attaches learned metadata to existing primitives. It does not replace MCP, redefine tools, or add protocol abstractions.
-  - title: Single source of truth
+  - title: The store is authoritative
     details: All metadata lives in a SQLite store (node:sqlite). The tools-metadata.yaml view is a derived projection, recomputed whenever metadata changes — never edited by hand.
   - title: Server governs, client executes
     details: The server publishes a narrow, server-governed resource (dev.adaptivemcp/tools-metadata). The client learning machinery reads it, adapts, and reports observations back, degrading gracefully on any host that ignores it.
@@ -41,18 +41,18 @@ govern themselves from real signal.
 ```mermaid
 flowchart TD
     ToolExec["Tool execution (MCP server)"] --> Telemetry
-    Telemetry -->|records event| Memory["MemoryStore (SQLite SSOT)"]
+    Telemetry -->|records event| Memory["MemoryStore (SQLite)"]
     Memory --> Eval["Evaluation"]
     Eval -->|insights| Memory
     Telemetry --> Ext["ExtensionController"]
     Memory --> Ext
     Eval --> Ext
-    Ext -->|reads SSOT| YAML["tools-metadata.yaml (derived view)"]
+    Ext -->|reads the store| YAML["tools-metadata.yaml (derived view)"]
     Ext --> Resource["MCP resource: dev.adaptivemcp/tools-metadata"]
 ```
 
-Data always flows in one direction: **event → MemoryStore (SSOT) → derived
-YAML view**. The YAML is never edited directly; it is recomputed from the SSOT
+Data always flows in one direction: **event → MemoryStore → derived
+YAML view**. The YAML is never edited directly; it is recomputed from the store
 whenever metadata changes.
 
 ## Quick start
