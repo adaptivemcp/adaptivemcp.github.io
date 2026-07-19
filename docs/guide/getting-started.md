@@ -9,7 +9,7 @@ loop locally, and standing up the MCP server + client example.
 
 ## Prerequisites
 
-- **Node 26**
+- **Node 22+** (Node 26 recommended)
 - **pnpm 11.14.0**
 
 ## Install
