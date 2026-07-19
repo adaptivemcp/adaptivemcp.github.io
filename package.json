@@ -6,6 +6,8 @@
     "docs:deploy": "pnpm docs:build && gh-pages -d docs/.vitepress/dist"
   },
   "devDependencies": {
-    "gh-pages": "^6.3.0"
+    "gh-pages": "^6.3.0",
+    "vitepress": "^1.6.4",
+    "vue": "^3.5.40"
   }
 }
