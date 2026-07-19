@@ -7,7 +7,9 @@
   },
   "devDependencies": {
     "gh-pages": "^6.3.0",
+    "mermaid": "^11.16.0",
     "vitepress": "^1.6.4",
+    "vitepress-plugin-mermaid": "^2.0.17",
     "vue": "^3.5.40"
   }
 }

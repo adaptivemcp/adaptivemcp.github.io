@@ -1,7 +1,8 @@
 import { defineConfig } from 'vitepress'
+import { withMermaid } from 'vitepress-plugin-mermaid'
 
 // https://vitepress.dev/reference/site-config
-export default defineConfig({
+export default withMermaid(defineConfig({
   title: "Adaptive MCP",
   description: "Turn MCP usage into learned metadata, so clients adapt instead of guessing.",
   themeConfig: {
@@ -36,4 +37,4 @@ export default defineConfig({
       { icon: 'github', link: 'https://github.com/kemalelmizan/adaptive-mcp' }
     ]
   }
-})
+}))
