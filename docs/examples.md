@@ -1,3 +1,7 @@
+---
+description: A runnable tour of every Adaptive MCP package — a real MCP server + client that derives a tools-metadata.yaml view from a SQLite source of truth.
+---
+
 # Examples
 
 The [`examples/`](https://github.com/kemalelmizan/adaptive-mcp/tree/main/examples)

@@ -1,3 +1,7 @@
+---
+description: Install Adaptive MCP, run the adaptation loop locally, and stand up the MCP server + client example. A learning layer over MCP primitives.
+---
+
 # Getting Started
 
 This guide walks you through installing Adaptive MCP, running the adaptation

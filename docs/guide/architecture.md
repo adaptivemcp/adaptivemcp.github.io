@@ -1,3 +1,7 @@
+---
+description: How Adaptive MCP learns tool behavior from real signal — the event → MemoryStore (SSOT) → derived YAML view loop, and its design constraints.
+---
+
 # Architecture
 
 The adaptation loop runs entirely on the client/runtime side. Adaptive MCP is a

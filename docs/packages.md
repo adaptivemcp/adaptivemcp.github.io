@@ -1,3 +1,7 @@
+---
+description: The published @adaptivemcp/* libraries (spec, memory, telemetry, evaluation, extension) and the private executor packages (routing, orchestration, approval, thin-client).
+---
+
 # Packages
 
 Adaptive MCP publishes its core libraries under the

@@ -3,7 +3,8 @@
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
-    "docs:deploy": "pnpm docs:build && gh-pages -d docs/.vitepress/dist"
+    "docs:sitemap": "node scripts/sitemap.mjs",
+    "docs:deploy": "pnpm docs:build && pnpm docs:sitemap && gh-pages -d docs/.vitepress/dist"
   },
   "devDependencies": {
     "gh-pages": "^6.3.0",

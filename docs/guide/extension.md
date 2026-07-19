@@ -1,3 +1,7 @@
+---
+description: The dev.adaptivemcp/tools-metadata MCP resource — a narrow, server-governed extension that publishes learned tool metadata and degrades gracefully.
+---
+
 # The `tools-metadata` Extension Resource
 
 MCP formalizes the **server** contract and lets the server **govern** how clients

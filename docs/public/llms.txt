@@ -1,0 +1,34 @@
+# Adaptive MCP
+
+> Turn MCP usage into learned metadata, so clients adapt instead of guessing.
+> A learning layer over MCP primitives (tools, resources) — it does not replace
+> MCP, redefine tools, or introduce new protocol abstractions.
+
+Adaptive MCP observes how MCP tools are actually used and attaches learned
+metadata to existing primitives. All metadata lives in a SQLite store (the
+single source of truth); the `tools-metadata.yaml` view is a derived projection,
+recomputed whenever metadata changes. The server governs a narrow, server-governed
+resource (`dev.adaptivemcp/tools-metadata`); the client learning machinery reads
+it, adapts, and reports observations back, degrading gracefully on any host that
+ignores it.
+
+## Docs
+
+- Getting Started: https://adaptivemcp.dev/guide/getting-started
+- Architecture: https://adaptivemcp.dev/guide/architecture
+- The tools-metadata Extension: https://adaptivemcp.dev/guide/extension
+- Packages: https://adaptivemcp.dev/packages
+- Examples: https://adaptivemcp.dev/examples
+
+## Packages
+
+- @adaptivemcp/spec — Extension identifiers, event schemas, shared types
+- @adaptivemcp/memory — SQLite SSOT store (MemoryStore) over node:sqlite
+- @adaptivemcp/telemetry — Tool execution events and observability
+- @adaptivemcp/evaluation — Outcome scoring and feedback loops
+- @adaptivemcp/extension — Derives the YAML view and serves the MCP resource
+
+## Source
+
+- Repository: https://github.com/kemalelmizan/adaptive-mcp
+- npm organization: https://www.npmjs.com/org/adaptivemcp
