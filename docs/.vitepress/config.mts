@@ -3,26 +3,37 @@ import { defineConfig } from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "Adaptive MCP",
-  description: "Adaptive runtime for MCP clients. Build muscle, not fat. Telemetry-driven optimization through modular extensions",
+  description: "Turn MCP usage into learned metadata, so clients adapt instead of guessing.",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/markdown-examples' }
+      { text: 'Getting Started', link: '/guide/getting-started' },
+      { text: 'Architecture', link: '/guide/architecture' },
+      { text: 'Packages', link: '/packages' },
+      { text: 'Examples', link: '/examples' }
     ],
 
     sidebar: [
       {
-        text: 'Examples',
+        text: 'Guide',
         items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
+          { text: 'Getting Started', link: '/guide/getting-started' },
+          { text: 'Architecture', link: '/guide/architecture' },
+          { text: 'The tools-metadata Extension', link: '/guide/extension' }
+        ]
+      },
+      {
+        text: 'Reference',
+        items: [
+          { text: 'Packages', link: '/packages' },
+          { text: 'Examples', link: '/examples' }
         ]
       }
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+      { icon: 'github', link: 'https://github.com/kemalelmizan/adaptive-mcp' }
     ]
   }
 })
