@@ -1,5 +1,5 @@
 ---
-description: The published @adaptivemcp/* libraries (spec, memory, telemetry, evaluation, extension) and the private executor packages (routing, orchestration, approval, thin-client).
+description: The published @adaptivemcp/* packages — generated from each package.json by `pnpm docs`.
 ---
 
 # Packages
@@ -9,59 +9,53 @@ Adaptive MCP publishes its core libraries under the
 packages are dependency-light and follow the same boundaries as the
 [architecture](/guide/architecture).
 
-> **Version note.** Versions below reflect the current state of the repository
-> (`main`). Published versions on npm may lag behind; always check the badge for
-> the live published version. The four executor packages are **private** and are
-> not published to npm.
+> **Version note.** The version column is a live badge resolved from npm at
+> render time, so it always reflects the published version. The package list and
+> descriptions are generated from each `package.json` by `pnpm docs` — edit the
+> source, not this file.
 
 ## Published (`@adaptivemcp/*`)
 
-These five are the **published** set (see `PUBLISHABLE_PACKAGES` in
+All packages below are published to npm (see `PUBLISHABLE_PACKAGES` in
 [`scripts/lib/workspace.ts`](https://github.com/kemalelmizan/adaptive-mcp/blob/main/scripts/lib/workspace.ts)),
 released with the
 [`scripts/release.ts`](https://github.com/kemalelmizan/adaptive-mcp/blob/main/scripts/release.ts)
 flow (see [`docs/RELEASE.md`](https://github.com/kemalelmizan/adaptive-mcp/blob/main/docs/RELEASE.md)
 for the full release runbook).
 
+<!-- packages:published:start -->
 | Package | Version | Install | Description |
 | --- | --- | --- | --- |
-| `@adaptivemcp/spec` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/spec)](https://www.npmjs.com/package/@adaptivemcp/spec) `0.1.1` | `npm i @adaptivemcp/spec` | Extension identifiers (`dev.adaptivemcp/` reversed-domain namespace), event schemas, and shared types. |
-| `@adaptivemcp/memory` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/memory)](https://www.npmjs.com/package/@adaptivemcp/memory) `0.2.1` | `npm i @adaptivemcp/memory` | Persistent operational knowledge backed by SQLite (`node:sqlite`), the store. |
-| `@adaptivemcp/telemetry` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/telemetry)](https://www.npmjs.com/package/@adaptivemcp/telemetry) `0.1.1` | `npm i @adaptivemcp/telemetry` | Tool execution events and observability (recorder + memory-backed store). |
-| `@adaptivemcp/evaluation` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/evaluation)](https://www.npmjs.com/package/@adaptivemcp/evaluation) `0.2.1` | `npm i @adaptivemcp/evaluation` | Outcome scoring and feedback loops; emits `observed_failure_rate` / `avg_duration_ms` insights. |
-| `@adaptivemcp/extension` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/extension)](https://www.npmjs.com/package/@adaptivemcp/extension) `0.2.1` | `npm i @adaptivemcp/extension` | Derives the YAML `tools-metadata` view from the store and serves it as the `dev.adaptivemcp/tools-metadata` MCP resource. |
-
-## Private (not published)
-
-`routing`, `orchestration`, `approval`, and `thin-client` are implemented but
-kept private for now. They are the client-side **executor** of the policy the
-server governs, and their APIs are still stabilizing. `examples` and `apps` are
-runnable demos, not libraries.
-
-| Package | Version | Responsibility |
-| --- | --- | --- |
-| `@adaptivemcp/routing` | `0.0.2` | `Router`: model selection + budget guardrails. |
-| `@adaptivemcp/orchestration` | `0.0.2` | `Orchestrator`: retry-policy (`workflow`) recommendations. |
-| `@adaptivemcp/approval` | `0.0.2` | `ApprovalGate`: enforcement (allow / deny / require_confirmation). |
-| `@adaptivemcp/thin-client` | `0.0.2` | `ThinClient`: client-side execution loop with gate + retry. |
+| `@adaptivemcp/spec` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/spec)](https://www.npmjs.com/package/@adaptivemcp/spec) | `npm i @adaptivemcp/spec` | Extension identifiers, event schemas, and shared types for Adaptive MCP. |
+| `@adaptivemcp/memory` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/memory)](https://www.npmjs.com/package/@adaptivemcp/memory) | `npm i @adaptivemcp/memory` | Persistent operational knowledge for Adaptive MCP, backed by SQLite (node:sqlite). |
+| `@adaptivemcp/telemetry` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/telemetry)](https://www.npmjs.com/package/@adaptivemcp/telemetry) | `npm i @adaptivemcp/telemetry` | Tool execution events and observability for Adaptive MCP. |
+| `@adaptivemcp/evaluation` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/evaluation)](https://www.npmjs.com/package/@adaptivemcp/evaluation) | `npm i @adaptivemcp/evaluation` | Outcome scoring and feedback loops for Adaptive MCP. |
+| `@adaptivemcp/extension` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/extension)](https://www.npmjs.com/package/@adaptivemcp/extension) | `npm i @adaptivemcp/extension` | Adaptive MCP extension: derives the YAML tools-metadata view from the SQLite store and serves it to MCP clients. |
+| `@adaptivemcp/runtime` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/runtime)](https://www.npmjs.com/package/@adaptivemcp/runtime) | `npm i @adaptivemcp/runtime` | Batteries-included Adaptive MCP runtime: wires telemetry, evaluation, routing, orchestration, approval, and the extension into one transport-agnostic loop. |
+| `@adaptivemcp/routing` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/routing)](https://www.npmjs.com/package/@adaptivemcp/routing) | `npm i @adaptivemcp/routing` | Model selection and cost optimization for Adaptive MCP. |
+| `@adaptivemcp/orchestration` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/orchestration)](https://www.npmjs.com/package/@adaptivemcp/orchestration) | `npm i @adaptivemcp/orchestration` | Composition and execution strategies for Adaptive MCP. |
+| `@adaptivemcp/approval` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/approval)](https://www.npmjs.com/package/@adaptivemcp/approval) | `npm i @adaptivemcp/approval` | Intent, plan, and tool approval boundaries for Adaptive MCP. |
+| `@adaptivemcp/thin-client` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/thin-client)](https://www.npmjs.com/package/@adaptivemcp/thin-client) | `npm i @adaptivemcp/thin-client` | Minimal client-side execution loop for Adaptive MCP. |
+<!-- packages:published:end -->
 
 ## Responsibilities at a glance
 
+<!-- packages:responsibilities:start -->
 | Package | Responsibility |
 | --- | --- |
-| `@adaptivemcp/spec` | Extension identifiers (`dev.adaptivemcp/` reversed-domain namespace), event schemas, shared types |
-| `@adaptivemcp/memory` | SQLite store (`MemoryStore`) over `node:sqlite` |
-| `@adaptivemcp/telemetry` | `TelemetryRecorder` + memory-backed store + stat queries |
-| `@adaptivemcp/evaluation` | `Evaluator` emits `observed_failure_rate` / `avg_duration_ms` insights |
-| `@adaptivemcp/extension` | `ExtensionController` derives + writes the YAML view and exposes the MCP resource |
-| `@adaptivemcp/routing` | `Router`: model selection + budget guardrails |
-| `@adaptivemcp/orchestration` | `Orchestrator`: retry-policy (`workflow`) recommendations |
-| `@adaptivemcp/approval` | `ApprovalGate`: enforcement (allow / deny / require_confirmation) |
-| `@adaptivemcp/thin-client` | `ThinClient`: client-side execution loop with gate + retry |
+| `@adaptivemcp/spec` | Extension identifiers, event schemas, and shared types for Adaptive MCP. |
+| `@adaptivemcp/memory` | Persistent operational knowledge for Adaptive MCP, backed by SQLite (node:sqlite). |
+| `@adaptivemcp/telemetry` | Tool execution events and observability for Adaptive MCP. |
+| `@adaptivemcp/evaluation` | Outcome scoring and feedback loops for Adaptive MCP. |
+| `@adaptivemcp/extension` | Adaptive MCP extension: derives the YAML tools-metadata view from the SQLite store and serves it to MCP clients. |
+| `@adaptivemcp/runtime` | Batteries-included Adaptive MCP runtime: wires telemetry, evaluation, routing, orchestration, approval, and the extension into one transport-agnostic loop. |
+| `@adaptivemcp/routing` | Model selection and cost optimization for Adaptive MCP. |
+| `@adaptivemcp/orchestration` | Composition and execution strategies for Adaptive MCP. |
+| `@adaptivemcp/approval` | Intent, plan, and tool approval boundaries for Adaptive MCP. |
+| `@adaptivemcp/thin-client` | Minimal client-side execution loop for Adaptive MCP. |
+<!-- packages:responsibilities:end -->
 
 ## What's next
 
-- Promote `routing`, `orchestration`, `approval`, and `thin-client` to published
-  packages once their APIs settle.
 - Multi-server aggregation: merge `tools-metadata` across servers into one view.
 - More insight types: cost drift, latency regression, and approval friction.
