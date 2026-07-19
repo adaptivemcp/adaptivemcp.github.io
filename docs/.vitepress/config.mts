@@ -10,6 +10,25 @@ export default withMermaid(defineConfig({
   lang: "en-US",
   cleanUrls: true,
   lastUpdated: true,
+  vite: {
+    build: {
+      chunkSizeWarningLimit: 4000,
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes('node_modules')) {
+              if (id.includes('mermaid') || id.includes('@mermaid-js')) {
+                return 'mermaid'
+              }
+              if (id.includes('katex') || id.includes('@vscode/markdown-it-katex')) {
+                return 'katex'
+              }
+            }
+          }
+        }
+      }
+    }
+  },
   head: [
     ["link", { rel: "canonical", href: SITE_URL }],
     ["meta", { property: "og:type", content: "website" }],
