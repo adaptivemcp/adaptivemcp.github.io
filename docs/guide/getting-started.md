@@ -14,6 +14,8 @@ loop locally, and standing up the MCP server + client example.
 
 ## Install
 
+### From npm
+
 The five adaptivemcp libraries are available on npm under the
 [`@adaptivemcp` organization](https://www.npmjs.com/org/adaptivemcp):
 
@@ -25,7 +27,7 @@ npm i @adaptivemcp/spec @adaptivemcp/memory @adaptivemcp/telemetry \
 See the [Packages](/packages) page for the current published versions and
 per-package responsibilities.
 
-## Install and build
+### From source
 
 ```bash
 git clone https://github.com/kemalelmizan/adaptive-mcp
@@ -65,6 +67,98 @@ for (let i = 0; i < 20; i++) {
 evaluator.evaluateAll();   // SSOT stats → insights → SSOT
 extension.sync();          // SSOT → tools-metadata.yaml (and the MCP resource text)
 console.log(extension.resourceText());
+```
+
+## Usage examples
+
+The pieces below are small, self-contained snippets you can drop into a script
+or REPL. They all share the same four building blocks: a `MemoryStore` (the
+SQLite SSOT), a `TelemetryRecorder` (observe), an `Evaluator` (learn), and an
+`ExtensionController` (derive the view).
+
+### Observe a tool call
+
+```ts
+import { MemoryStore } from "@adaptivemcp/memory";
+import { TelemetryRecorder, MemoryBackedTelemetryStore } from "@adaptivemcp/telemetry";
+
+const memory = new MemoryStore();
+const telemetry = new TelemetryRecorder({
+  store: new MemoryBackedTelemetryStore(memory),
+});
+
+// Record one completed call (or pass status: "failed" on error).
+telemetry.complete(
+  { toolName: "deploy_service", serverName: "demo", model: "gpt-5-mini" },
+  { durationMs: 900, cost: { amount: 0.002, currency: "USD" } },
+  { status: "completed" },
+);
+```
+
+### Learn from the observations
+
+```ts
+import { Evaluator } from "@adaptivemcp/evaluation";
+
+const evaluator = new Evaluator({ memory });
+evaluator.evaluateAll();   // folds raw stats into insights in the SSOT
+```
+
+### Route to the cheapest viable model
+
+```ts
+import { Router } from "@adaptivemcp/routing";
+
+const router = new Router({
+  memory,
+  models: [
+    { id: "gpt-5-mini", costWeight: 1, latencyWeight: 1 },
+    { id: "gpt-5", costWeight: 4, latencyWeight: 0.6 },
+  ],
+  budget: { perToolLimit: 0.05 },
+});
+router.routeAll();   // writes `model` + `routing` recommendations to the SSOT
+```
+
+### Gate a planned tool call
+
+```ts
+import { ApprovalGate } from "@adaptivemcp/approval";
+
+const approval = new ApprovalGate({ memory });
+const decision = approval.gate("deploy_service");
+// → "allow" | "require_confirmation" | "deny"
+// based on the human annotation (static risk) and the learned failure rate.
+```
+
+### Derive and read the YAML view
+
+```ts
+import { ExtensionController } from "@adaptivemcp/extension";
+
+const extension = new ExtensionController({ memory, yamlPath: "tools-metadata.yaml" });
+extension.sync();                 // SSOT → tools-metadata.yaml
+console.log(extension.resourceText());   // the MCP resource text
+```
+
+### Wire it all together
+
+For the full stack (telemetry → evaluation → routing → orchestration →
+approval → YAML view) in one object, the examples ship an `AdaptiveRuntime`
+class in [`examples/src/runtime.ts`](https://github.com/kemalelmizan/adaptive-mcp/blob/main/examples/src/runtime.ts):
+
+```ts
+import { AdaptiveRuntime } from "./runtime.js";   // from examples/src
+
+const runtime = new AdaptiveRuntime({ yamlPath: "tools-metadata.yaml" });
+runtime.observeCompleted({
+  toolName: "deploy_service",
+  serverName: "demo",
+  durationMs: 900,
+  status: "completed",
+});
+const decision = runtime.gate("deploy_service");
+runtime.close();
 ```
 
 ## Run the MCP server + client example
