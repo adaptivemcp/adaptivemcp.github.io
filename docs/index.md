@@ -22,7 +22,7 @@ features:
   - title: Server governs, client executes
     details: The server publishes a narrow, server-governed resource (dev.adaptivemcp/tools-metadata). The client learning machinery reads it, adapts, and reports observations back, degrading gracefully on any host that ignores it.
   - title: Modular, dependency-light packages
-    details: Five published @adaptivemcp/* libraries (spec, memory, telemetry, evaluation, extension) plus four private executor packages (routing, orchestration, approval, thin-client).
+    details: Ten published @adaptivemcp/* packages — spec, memory, telemetry, evaluation, extension, runtime, routing, orchestration, approval, and thin-client.
 ---
 
 ## What it is

@@ -54,7 +54,7 @@ stays stateless and lightweight; all adaptive behavior lives in the
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
-import { AdaptiveRuntime } from "./runtime.js";
+import { AdaptiveRuntime } from "@adaptivemcp/runtime";
 
 export async function startServer(dbPath?: string, yamlPath?: string) {
   const runtime = new AdaptiveRuntime({ dbPath, yamlPath });
@@ -128,7 +128,7 @@ the server's SQLite store. The client never writes metadata.
 // examples/src/client.ts (abridged)
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
-import { AdaptiveRuntime } from "./runtime.js";
+import { AdaptiveRuntime } from "@adaptivemcp/runtime";
 
 export async function runClient() {
   const transport = new StdioClientTransport({

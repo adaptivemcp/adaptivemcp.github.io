@@ -16,12 +16,17 @@ loop locally, and standing up the MCP server + client example.
 
 ### From npm
 
-The five adaptivemcp libraries are available on npm under the
-[`@adaptivemcp` organization](https://www.npmjs.com/org/adaptivemcp):
+All ten `@adaptivemcp/*` packages are available on npm under the
+[`@adaptivemcp` organization](https://www.npmjs.com/org/adaptivemcp). The
+core building blocks are `spec`, `memory`, `telemetry`, `evaluation`, and
+`extension`; `runtime` wires them into one loop, and `routing`,
+`orchestration`, `approval`, and `thin-client` are the client-side executors:
 
 ```bash
 npm i @adaptivemcp/spec @adaptivemcp/memory @adaptivemcp/telemetry \
-      @adaptivemcp/evaluation @adaptivemcp/extension
+      @adaptivemcp/evaluation @adaptivemcp/extension @adaptivemcp/runtime \
+      @adaptivemcp/routing @adaptivemcp/orchestration \
+      @adaptivemcp/approval @adaptivemcp/thin-client
 ```
 
 See the [Packages](/packages) page for the current published versions and
@@ -144,11 +149,11 @@ console.log(extension.resourceText());   // the MCP resource text
 ### Wire it all together
 
 For the full stack (telemetry → evaluation → routing → orchestration →
-approval → YAML view) in one object, the examples ship an `AdaptiveRuntime`
-class in [`examples/src/runtime.ts`](https://github.com/kemalelmizan/adaptive-mcp/blob/main/examples/src/runtime.ts):
+approval → YAML view) in one object, the examples use `AdaptiveRuntime`
+from [`@adaptivemcp/runtime`](https://www.npmjs.com/package/@adaptivemcp/runtime):
 
 ```ts
-import { AdaptiveRuntime } from "./runtime.js";   // from examples/src
+import { AdaptiveRuntime } from "@adaptivemcp/runtime";
 
 const runtime = new AdaptiveRuntime({ yamlPath: "tools-metadata.yaml" });
 runtime.observeCompleted({
