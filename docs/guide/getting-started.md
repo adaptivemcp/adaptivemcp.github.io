@@ -5,9 +5,21 @@ loop locally, and standing up the MCP server + client example.
 
 ## Prerequisites
 
-- **Node 26** — the built-in `node:sqlite` module is available without the
-  `--experimental-sqlite` flag. No LTS, no other Node versions.
-- **pnpm 11.14.0** (pinned via the repo's `packageManager` field).
+- **Node 26**
+- **pnpm 11.14.0**
+
+## Install
+
+The five adaptivemcp libraries are available on npm under the
+[`@adaptivemcp` organization](https://www.npmjs.com/org/adaptivemcp):
+
+```bash
+npm i @adaptivemcp/spec @adaptivemcp/memory @adaptivemcp/telemetry \
+      @adaptivemcp/evaluation @adaptivemcp/extension
+```
+
+See the [Packages](/packages) page for the current published versions and
+per-package responsibilities.
 
 ## Install and build
 
@@ -15,7 +27,7 @@ loop locally, and standing up the MCP server + client example.
 git clone https://github.com/kemalelmizan/adaptive-mcp
 cd adaptive-mcp
 pnpm install
-pnpm -r run build
+pnpm -r run build      # compile all packages + examples
 ```
 
 ## See the adaptation loop in one command
@@ -70,23 +82,9 @@ pnpm scenario:annotation # human annotation vs. learned insight
 pnpm scenario:adaptive   # full stack: routing + orchestration + approval + thin-client
 ```
 
-## Install the published packages
-
-The five published libraries are available on npm under the
-[`@adaptivemcp` organization](https://www.npmjs.com/org/adaptivemcp):
-
-```bash
-npm i @adaptivemcp/spec @adaptivemcp/memory @adaptivemcp/telemetry \
-      @adaptivemcp/evaluation @adaptivemcp/extension
-```
-
-See the [Packages](/packages) page for the current published versions and
-per-package responsibilities.
-
 ## Build, test, and lint
 
 ```bash
-pnpm install
 pnpm -r run build      # compile all packages + examples
 pnpm test              # run the Vitest suite (unit + integration)
 pnpm lint              # ESLint
