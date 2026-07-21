@@ -34,7 +34,7 @@ store.
 ## Prerequisites
 
 - **Node 22+** (Node 26 recommended)
-- **pnpm 11.14.0**
+- **pnpm 11+**
 
 ```bash
 pnpm install

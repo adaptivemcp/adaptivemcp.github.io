@@ -57,7 +57,7 @@ whenever metadata changes.
 
 ## Quick start
 
-Requires **Node 22+** (Node 26 recommended) and **pnpm 11.14.0**.
+Requires **Node 22+** (Node 26 recommended) and **pnpm 11+**.
 
 ```bash
 git clone https://github.com/kemalelmizan/adaptive-mcp
