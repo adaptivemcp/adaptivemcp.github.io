@@ -68,6 +68,7 @@ export default withMermaid(defineConfig({
         items: [
           { text: 'Getting Started', link: '/guide/getting-started' },
           { text: 'Architecture', link: '/guide/architecture' },
+          { text: 'Execution Graph Explorer', link: '/guide/graph-explorer' },
           { text: 'The tools-metadata Extension', link: '/guide/extension' }
         ]
       },

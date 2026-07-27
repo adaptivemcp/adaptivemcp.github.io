@@ -11,6 +11,7 @@ const ROUTES = [
   "/",
   "/guide/getting-started",
   "/guide/architecture",
+  "/guide/graph-explorer",
   "/guide/extension",
   "/packages",
   "/examples"

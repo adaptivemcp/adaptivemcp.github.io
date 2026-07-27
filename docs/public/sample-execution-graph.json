@@ -1,0 +1,24 @@
+{
+  "version": "0.2.5",
+  "etag": "sample",
+  "generated_at": "2026-01-01T00:00:00.000Z",
+  "session_id": "sample-session",
+  "workflow_id": "deploy_release",
+  "nodes": [
+    { "id": "root", "tool": "deploy_release", "server": "orchestrator", "children": ["merge_pr", "create_release", "argocd_sync", "notify"], "timestamp": "2026-01-01T00:00:00.000Z", "duration_ms": 25000, "status": "completed", "cost": 0.005, "model": "gpt-5" },
+    { "id": "merge_pr", "tool": "github.merge_pr", "server": "github", "parent": "root", "children": [], "timestamp": "2026-01-01T00:00:01.000Z", "duration_ms": 2500, "status": "completed", "cost": 0.001, "model": "gpt-5-mini" },
+    { "id": "create_release", "tool": "github.create_release", "server": "github", "parent": "root", "children": [], "timestamp": "2026-01-01T00:00:02.000Z", "duration_ms": 1800, "status": "completed", "cost": 0.001, "model": "gpt-5-mini" },
+    { "id": "argocd_sync", "tool": "argocd.sync", "server": "argocd", "parent": "root", "children": ["k8s_apply"], "timestamp": "2026-01-01T00:00:03.000Z", "duration_ms": 500, "status": "completed", "cost": 0.0005, "model": "gpt-5" },
+    { "id": "k8s_apply", "tool": "kubernetes.apply", "server": "kubernetes", "parent": "argocd_sync", "children": ["k8s_wait"], "timestamp": "2026-01-01T00:00:04.000Z", "duration_ms": 12000, "status": "completed", "cost": 0.002, "model": "gpt-5" },
+    { "id": "k8s_wait", "tool": "kubernetes.wait", "server": "kubernetes", "parent": "k8s_apply", "children": [], "timestamp": "2026-01-01T00:00:16.000Z", "duration_ms": 8000, "status": "completed", "cost": 0.0005, "model": "gpt-5-mini" },
+    { "id": "notify", "tool": "slack.notify", "server": "slack", "parent": "root", "children": [], "timestamp": "2026-01-01T00:00:05.000Z", "duration_ms": 300, "status": "failed", "cost": 0.0001, "model": "gpt-5-mini" }
+  ],
+  "edges": [
+    { "from": "root", "to": "merge_pr" },
+    { "from": "root", "to": "create_release" },
+    { "from": "root", "to": "argocd_sync" },
+    { "from": "root", "to": "notify" },
+    { "from": "argocd_sync", "to": "k8s_apply" },
+    { "from": "k8s_apply", "to": "k8s_wait" }
+  ]
+}
