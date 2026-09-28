@@ -36,6 +36,8 @@ for the full release runbook).
 | `@adaptivemcp/orchestration` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/orchestration)](https://www.npmjs.com/package/@adaptivemcp/orchestration) | Composition and execution strategies for Adaptive MCP. |
 | `@adaptivemcp/approval` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/approval)](https://www.npmjs.com/package/@adaptivemcp/approval) | Intent, plan, and tool approval boundaries for Adaptive MCP. |
 | `@adaptivemcp/thin-client` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/thin-client)](https://www.npmjs.com/package/@adaptivemcp/thin-client) | Minimal client-side execution loop for Adaptive MCP. |
+| `@adaptivemcp/middleware` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/middleware)](https://www.npmjs.com/package/@adaptivemcp/middleware) | Pluggable middleware chain for Adaptive MCP (Transform I/O, gate, inject-auth, observe). |
+| `@adaptivemcp/mcp-binary` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/mcp-binary)](https://www.npmjs.com/package/@adaptivemcp/mcp-binary) | Generic CLI-binary -> MCP-server stdio wrapper (the only sanctioned shell-out layer). |
 <!-- packages:published:end -->
 
 ## Responsibilities at a glance
@@ -53,6 +55,8 @@ for the full release runbook).
 | `@adaptivemcp/orchestration` | Composition and execution strategies for Adaptive MCP. |
 | `@adaptivemcp/approval` | Intent, plan, and tool approval boundaries for Adaptive MCP. |
 | `@adaptivemcp/thin-client` | Minimal client-side execution loop for Adaptive MCP. |
+| `@adaptivemcp/middleware` | Pluggable middleware chain for Adaptive MCP (Transform I/O, gate, inject-auth, observe). |
+| `@adaptivemcp/mcp-binary` | Generic CLI-binary -> MCP-server stdio wrapper (the only sanctioned shell-out layer). |
 <!-- packages:responsibilities:end -->
 
 ## What's next
