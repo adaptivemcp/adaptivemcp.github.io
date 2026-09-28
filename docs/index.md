@@ -22,7 +22,9 @@ features:
   - title: Server governs, client executes
     details: The server publishes a narrow, server-governed resource (dev.adaptivemcp/tools-metadata). The client learning machinery reads it, adapts, and reports observations back, degrading gracefully on any host that ignores it.
   - title: Modular, dependency-light packages
-    details: Ten published @adaptivemcp/* packages — spec, memory, telemetry, evaluation, extension, runtime, routing, orchestration, approval, and thin-client.
+    details: Twelve published @adaptivemcp/* packages — spec, memory, telemetry, evaluation, extension, runtime, routing, orchestration, approval, thin-client, middleware, and mcp-binary.
+  - title: An agent that closes the loop
+    details: The Adaptive MCP agent is a provider-agnostic, MCP-native host that owns both the LLM completion and the tool execution — so routing and decoding recommendations actually apply and every library learns from real usage.
 ---
 
 ## What it is
@@ -35,6 +37,12 @@ govern themselves from real signal.
 
 > **Status:** experimental. The packages are published, but the API may shift
 > before 1.0.
+
+The product implementation is the
+[**Adaptive MCP agent**](https://github.com/adaptivemcp/agent) — a
+provider-agnostic, MCP-native agent that consumes these libraries and closes the
+adaptation loop. Execution-graph intelligence lives in
+`@adaptivemcp/graph-analysis` (implemented and tested, not yet published to npm).
 
 ## The adaptation loop
 

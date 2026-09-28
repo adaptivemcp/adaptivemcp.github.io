@@ -71,13 +71,17 @@ primitives.
 
 ## Data model
 
-All metadata is persisted in a SQLite store (`node:sqlite`). The schema is a
-single `tools` table keyed by `tool_name`:
+All metadata is persisted in a SQLite store (`node:sqlite`). Tool records live
+in a `tools` table keyed by the **composite** `(tool_name, server_name)` pair —
+two different MCP servers can expose a tool with the same name, and a
+`tool_name`-only key would let one server's record overwrite the other's. A
+second `execution_nodes` table stores the execution graph (one row per tool
+invocation, with parent/child links) when graph tracking is enabled.
 
 | Column | Type | Contents |
 | --- | --- | --- |
 | `tool_name` | TEXT (PK) | Tool identifier |
-| `server_name` | TEXT | Originating MCP server |
+| `server_name` | TEXT (PK) | Originating MCP server |
 | `annotation` | JSON | Static, human-written `Annotation` |
 | `insights` | JSON | Learned `Insight[]` |
 | `recommendations` | JSON | Suggested `Recommendation[]` |
@@ -90,11 +94,12 @@ single `tools` table keyed by `tool_name`:
   `description`). Never changes on its own.
 - **`Insight`**: learned from observed behavior (`key`, `value`, `confidence`,
   `source` of `evaluation` or `telemetry`, `sampleSize`). Upserted by key.
-- **`Recommendation`**: suggested adaptation (`type` of
-  `model`, `approval`, `workflow`, or `routing`, plus `payload`, `rationale`,
+- **`Recommendation`**: suggested adaptation (`type` of `model`, `routing`,
+  `approval`, `workflow`, `sampling`, or `decoding`, plus `payload`, `rationale`,
   `confidence`). Written by the routing/orchestration/approval packages.
 - **`ToolStats`**: `invocations`, `failures`, `failureRate`, `avgDurationMs`,
-  `totalCost`, `lastObservedAt`. Folded from each execution event.
+  `totalCost`, `avgOutputTokens`, `lastObservedAt`. Folded from each execution
+  event.
 - **`ToolRecord`**: the aggregate row (`toolName`, `serverName`, `annotation`,
   `insights`, `recommendations`, `stats`, `updatedAt`).
 
@@ -116,8 +121,20 @@ human-readable projection consumed by out-of-band MCP clients.
   `require_confirmation` for high-risk annotations or flaky tools (failure rate
   ≥ `flakyFailureRate`, default 0.2, after `minInvocations`), else `allow`.
   Writes an `approval` recommendation with `payload: { decision }`.
+- **Decoding** (`DecodingAdvisor` → `DecodingResolver`): emits a symbolic
+  `DecodingProfile` (`deterministic` / `balanced` / `creative`) from the observed
+  failure rate plus an optional caller-supplied intent hint, then resolves it into
+  the concrete sampler knobs a specific backend actually exposes. Advisory only.
+- **Middleware** (`MiddlewareChain`): optional `beforeCall` / `afterCall` /
+  `onError` / `contributeView` hooks around each call — transform I/O, gate,
+  inject credentials, observe. Middleware chains **MCP servers, not binaries**;
+  `@adaptivemcp/mcp-binary` is the only sanctioned shell-out layer.
+- **Graph intelligence** (`@adaptivemcp/graph-analysis`): critical path,
+  bottlenecks, failure/causal cascades, anti-patterns, and workflow forecasting
+  over the execution DAG.
 - **Thin client** (`ThinClient.run`): consults the gate, then executes with the
-  store-derived retry policy (or default). Records the outcome back to the store.
+  store-derived retry policy (or default), inside a per-call execution-graph
+  context. Records the outcome back to the store.
 
 ## `AdaptiveRuntime`
 

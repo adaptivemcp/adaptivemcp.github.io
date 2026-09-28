@@ -20,15 +20,27 @@ ignores it.
 - Packages: https://adaptivemcp.dev/packages
 - Examples: https://adaptivemcp.dev/examples
 
-## Packages
+## Packages (published)
 
 - @adaptivemcp/spec — Extension identifiers, event schemas, shared types
-- @adaptivemcp/memory — SQLite SSOT store (MemoryStore) over node:sqlite
+- @adaptivemcp/memory — SQLite store (MemoryStore) over node:sqlite
 - @adaptivemcp/telemetry — Tool execution events and observability
 - @adaptivemcp/evaluation — Outcome scoring and feedback loops
 - @adaptivemcp/extension — Derives the YAML view and serves the MCP resource
+- @adaptivemcp/runtime — Batteries-included runtime wiring the whole loop
+- @adaptivemcp/routing — Model selection, budget, and decoding policy
+- @adaptivemcp/orchestration — Retry/workflow composition
+- @adaptivemcp/approval — Approval gate (allow / deny / require_confirmation)
+- @adaptivemcp/thin-client — Client-side execution loop + graph tracking
+- @adaptivemcp/middleware — Pluggable middleware chain
+- @adaptivemcp/mcp-binary — CLI-binary -> MCP-server stdio wrapper
+
+Not yet published: @adaptivemcp/graph-analysis (execution-graph intelligence),
+@adaptivemcp/opencode-plugin (experimental OpenCode host adapter).
 
 ## Source
 
 - Repository: https://github.com/kemalelmizan/adaptive-mcp
+- Agent (product implementation): https://github.com/adaptivemcp/agent
+- Docs site source: https://github.com/adaptivemcp/adaptivemcp.github.io
 - npm organization: https://www.npmjs.com/org/adaptivemcp

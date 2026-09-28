@@ -171,19 +171,19 @@ live, derived view of the store after a handful of calls.
 spawning a server:
 
 ```ts
-// examples/src/runtime.ts (abridged)
-export class AdaptiveRuntime {
-  readonly memory: MemoryStore;          // @adaptivemcp/memory: SQLite store
-  readonly telemetry: TelemetryRecorder; // @adaptivemcp/telemetry
-  readonly evaluator: Evaluator;         // @adaptivemcp/evaluation
-  readonly extension: ExtensionController;// @adaptivemcp/extension
+// @adaptivemcp/runtime — the batteries-included wiring
+import { AdaptiveRuntime } from "@adaptivemcp/runtime";
 
-  observeCompleted(input) {
-    this.telemetry.complete(/* … */);    // event → MemoryStore
-    this.evaluator.evaluateAll();        // store stats → insights → store
-    this.extension.sync();               // store → tools-metadata.yaml
-  }
-}
+const runtime = new AdaptiveRuntime({ yamlPath: "tools-metadata.yaml" });
+
+runtime.observeCompleted({
+  toolName: "deploy_service",
+  serverName: "demo",
+  durationMs: 900,
+  status: "completed",
+});
+// observeCompleted records the event, runs evaluation, and re-syncs the view:
+//   event → MemoryStore → insights → tools-metadata.yaml
 ```
 
 Run the local loop:
@@ -204,6 +204,12 @@ own `tools-metadata.*.yaml` next to them so you can diff the view across phases.
 | `node dist/scenarios/insights.js` | telemetry · evaluation · extension | Telemetry folds events into the store; evaluation emits `observed_failure_rate` / `avg_duration_ms` insights as sample size grows. |
 | `node dist/scenarios/annotation.js` | spec · extension | Human `Annotation` (static) vs. learned `Insight` (dynamic) live side by side; only insights move on their own. |
 | `node dist/scenarios/adaptive.js` | routing · orchestration · approval · thin-client | **Full adaptive stack**: model selection + budget, retry policy for flaky tools, the approval gate enforcement hook, and the thin-client loop that consults both. |
+| `node dist/scenarios/execution-graph.js` | telemetry · memory · graph-analysis · extension | Execution DAG: critical path, bottlenecks, fan-out, and Mermaid/DOT exports via MCP resources. |
+| `node dist/scenarios/failure-cascade.js` | graph-analysis · extension | Root cause vs. symptom across two independent failure chains. |
+| `node dist/scenarios/cost-optimization.js` | routing · graph-analysis | Cost breakdown per tool/node and budget-driven routing. |
+| `node dist/scenarios/debugging-deployment.js` | graph-analysis · extension | Causal cascade, anti-pattern detection, workflow forecasting, Mermaid + GraphViz DOT. |
+| `node dist/scenarios/middleware.js` | middleware · thin-client | The pluggable middleware chain around tool calls. |
+| `node dist/scenarios/decoding-policy.js` | routing · spec | Backend-agnostic decoding profiles resolved into per-backend sampler knobs. |
 
 Run them all:
 
@@ -213,6 +219,12 @@ node dist/scenarios/store.js
 node dist/scenarios/insights.js
 node dist/scenarios/annotation.js
 node dist/scenarios/adaptive.js
+node dist/scenarios/execution-graph.js
+node dist/scenarios/failure-cascade.js
+node dist/scenarios/cost-optimization.js
+node dist/scenarios/debugging-deployment.js
+node dist/scenarios/middleware.js
+node dist/scenarios/decoding-policy.js
 ```
 
 ### Sample YAML views
@@ -238,4 +250,7 @@ These mirror what the scenarios print. Use them to see the schema at a glance.
 | `@adaptivemcp/routing` | `Router` writes `model` (cheapest model meeting observed latency/failure) and `routing` (budget warning) recommendations into the store. |
 | `@adaptivemcp/orchestration` | `Orchestrator` writes a `workflow` recommendation with a retry policy scaled to the observed failure rate. |
 | `@adaptivemcp/approval` | `ApprovalGate` is the enforcement hook: `gate()` returns `allow` / `require_confirmation` / `deny` from the annotation risk + learned failure rate, and records an `approval` recommendation. |
-| `@adaptivemcp/thin-client` | `ThinClient` runs the client-side loop: consults the approval gate, then executes with the store-derived retry policy. |
+| `@adaptivemcp/thin-client` | `ThinClient` runs the client-side loop: consults the approval gate, then executes with the store-derived retry policy, inside a per-call execution-graph context. |
+| `@adaptivemcp/middleware` | `MiddlewareChain` runs `beforeCall` / `afterCall` / `onError` around tool calls (transform I/O, gate, inject auth, observe). |
+| `@adaptivemcp/mcp-binary` | Wraps a CLI binary as an MCP server over stdio — the only sanctioned shell-out layer. |
+| `@adaptivemcp/graph-analysis` | `GraphAnalyzer`: critical path, bottlenecks, failure/causal cascades, anti-patterns, and workflow forecasting over the execution DAG. |

@@ -59,7 +59,30 @@ for the full release runbook).
 | `@adaptivemcp/mcp-binary` | Generic CLI-binary -> MCP-server stdio wrapper (the only sanctioned shell-out layer). |
 <!-- packages:responsibilities:end -->
 
-## What's next
+## Not yet published
 
-- Multi-server aggregation: merge `tools-metadata` across servers into one view.
-- More insight types: cost drift, latency regression, and approval friction.
+- **`@adaptivemcp/graph-analysis`** — execution-graph intelligence
+  (`GraphAnalyzer`: critical path, bottlenecks, failure/causal cascades,
+  anti-patterns, workflow forecasting). Implemented and tested, and already a
+  dependency of `routing`, `evaluation`, and `@adaptivemcp/opencode-plugin`, but
+  not yet in `PUBLISHABLE_PACKAGES`.
+- **`@adaptivemcp/opencode-plugin`** — an experimental adapter mapping OpenCode's
+  V1 hook system (`tool.execute.before` / `tool.execute.after` / `event` /
+  `dispose`) onto Adaptive MCP telemetry and middleware. Unit-tested against the
+  documented hook shape, not yet run against a live host.
+
+## The agent
+
+The [**Adaptive MCP agent**](https://github.com/adaptivemcp/agent) is the product
+implementation: a provider-agnostic, MCP-native agent that owns both the LLM
+completion and the tool execution, and consumes every `@adaptivemcp/*` library.
+
+## Status
+
+- The core adaptation loop (telemetry → evaluation → memory → extension), the
+  middleware chain, routing / orchestration / approval, and the execution graph
+  are implemented and tested.
+- `graph-analysis` and `opencode-plugin` are implemented but not yet published.
+- See the
+  [roadmap](https://github.com/kemalelmizan/adaptive-mcp/blob/main/docs/ROADMAP.md)
+  for the phased status and open work.

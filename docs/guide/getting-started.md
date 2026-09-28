@@ -16,17 +16,19 @@ loop locally, and standing up the MCP server + client example.
 
 ### From npm
 
-All ten `@adaptivemcp/*` packages are available on npm under the
+All twelve `@adaptivemcp/*` packages are available on npm under the
 [`@adaptivemcp` organization](https://www.npmjs.com/org/adaptivemcp). The
 core building blocks are `spec`, `memory`, `telemetry`, `evaluation`, and
-`extension`; `runtime` wires them into one loop, and `routing`,
-`orchestration`, `approval`, and `thin-client` are the client-side executors:
+`extension`; `runtime` wires them into one loop; `routing`, `orchestration`,
+`approval`, and `thin-client` are the client-side executors; and `middleware`
+and `mcp-binary` are the pluggable middleware chain and its CLI-binary wrapper:
 
 ```bash
 npm i @adaptivemcp/spec @adaptivemcp/memory @adaptivemcp/telemetry \
       @adaptivemcp/evaluation @adaptivemcp/extension @adaptivemcp/runtime \
       @adaptivemcp/routing @adaptivemcp/orchestration \
-      @adaptivemcp/approval @adaptivemcp/thin-client
+      @adaptivemcp/approval @adaptivemcp/thin-client \
+      @adaptivemcp/middleware @adaptivemcp/mcp-binary
 ```
 
 See the [Packages](/packages) page for the current published versions and
@@ -199,11 +201,32 @@ pnpm server     # or start the server alone (blocks on stdio)
 
 ```bash
 cd examples
-pnpm scenario            # improvement over time (healthy → flaky → fixed)
-pnpm scenario:store       # the store holds the metadata; YAML is derived
-pnpm scenario:insights   # telemetry → evaluation → insights
-pnpm scenario:annotation # human annotation vs. learned insight
-pnpm scenario:adaptive   # full stack: routing + orchestration + approval + thin-client
+pnpm scenario                       # improvement over time (healthy → flaky → fixed)
+pnpm scenario:store                 # the store holds the metadata; YAML is derived
+pnpm scenario:insights              # telemetry → evaluation → insights
+pnpm scenario:annotation            # human annotation vs. learned insight
+pnpm scenario:adaptive              # full stack: routing + orchestration + approval + thin-client
+pnpm scenario:execution-graph       # execution DAG: critical path, bottlenecks, fan-out
+pnpm scenario:failure-cascade       # root cause vs. symptom across a failed workflow
+pnpm scenario:cost-optimization     # cost breakdown + budget-driven routing
+pnpm scenario:debugging-deployment  # causal cascade, anti-patterns, forecasting, Mermaid/DOT
+pnpm scenario:middleware            # pluggable middleware chain around tool calls
+pnpm scenario:decoding-policy       # backend-agnostic decoding profiles + resolver
+```
+
+See the [Examples](/examples) page for what each scenario demonstrates.
+
+## Run the agent
+
+The libraries have a real host: the
+[**Adaptive MCP agent**](https://github.com/adaptivemcp/agent) — a
+provider-agnostic, MCP-native agent that owns both the LLM completion and the
+tool execution. From that repo:
+
+```bash
+# build the libraries first (this monorepo), then:
+cd ../agent && pnpm install
+pnpm demo    # offline: agent loop → telemetry → evaluation → derived view → decoding
 ```
 
 ## Build, test, and lint
