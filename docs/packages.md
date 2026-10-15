@@ -27,6 +27,7 @@ for the full release runbook).
 | Package | Version | Description |
 | --- | --- | --- |
 | `@adaptivemcp/spec` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/spec)](https://www.npmjs.com/package/@adaptivemcp/spec) | Extension identifiers, event schemas, and shared types for Adaptive MCP. |
+| `@adaptivemcp/graph-analysis` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/graph-analysis)](https://www.npmjs.com/package/@adaptivemcp/graph-analysis) | Graph analysis for Adaptive MCP execution DAGs: critical paths, bottlenecks, failure cascades, anti-patterns, and workflow forecasting. |
 | `@adaptivemcp/memory` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/memory)](https://www.npmjs.com/package/@adaptivemcp/memory) | Persistent operational knowledge for Adaptive MCP, backed by SQLite (node:sqlite). |
 | `@adaptivemcp/telemetry` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/telemetry)](https://www.npmjs.com/package/@adaptivemcp/telemetry) | Tool execution events and observability for Adaptive MCP. |
 | `@adaptivemcp/evaluation` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/evaluation)](https://www.npmjs.com/package/@adaptivemcp/evaluation) | Outcome scoring and feedback loops for Adaptive MCP. |
@@ -46,6 +47,7 @@ for the full release runbook).
 | Package | Responsibility |
 | --- | --- |
 | `@adaptivemcp/spec` | Extension identifiers, event schemas, and shared types for Adaptive MCP. |
+| `@adaptivemcp/graph-analysis` | Graph analysis for Adaptive MCP execution DAGs: critical paths, bottlenecks, failure cascades, anti-patterns, and workflow forecasting. |
 | `@adaptivemcp/memory` | Persistent operational knowledge for Adaptive MCP, backed by SQLite (node:sqlite). |
 | `@adaptivemcp/telemetry` | Tool execution events and observability for Adaptive MCP. |
 | `@adaptivemcp/evaluation` | Outcome scoring and feedback loops for Adaptive MCP. |
