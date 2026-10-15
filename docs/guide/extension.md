@@ -17,7 +17,8 @@ metadata. The proposal (draft) lives at
 
 | Field | Value |
 | --- | --- |
-| URI | `dev.adaptivemcp/tools-metadata` |
+| Extension identifier | `dev.adaptivemcp/tools-metadata` (scheme-less, per SEP-2133 naming) |
+| Resource URI (wire) | `dev.adaptivemcp://tools-metadata` (the identifier with a `://` URI scheme) |
 | MIME type | `application/yaml` |
 | Scope | server governance (annotations, budgets, required approvals) + client-reported observations |
 
@@ -28,7 +29,10 @@ machinery (`@adaptivemcp/telemetry`, `evaluation`, `routing`, `orchestration`,
 extension's server contract.
 
 The derived YAML view is exposed as the MCP resource
-`dev.adaptivemcp/tools-metadata` (mime type `application/yaml`).
+`dev.adaptivemcp://tools-metadata` (mime type `application/yaml`). A server that
+publishes it declares per-tool policy in the document — risk level and
+`require_approval` — and the client reads that as a **floor**: server-governed
+policy can only raise a gate, never lower it.
 
 ## Advertising the extension in `initialize`
 
@@ -44,12 +48,15 @@ degrades gracefully on any host that ignores unknown resources:
   `@adaptivemcp/spec` provide the canonical identifier for any host that wants to
   advertise it through `capabilities.extensions`.
 
-When a server wants to advertise it explicitly, it can pass the capability:
+When a server wants to advertise it explicitly, it can pass the capability
+under the extension identifier, and register the resource under its wire URI:
 
 ```ts
+import { TOOLS_METADATA_RESOURCE_URI } from "@adaptivemcp/spec";
+
 // conceptual: advertise the extension in initialize
 const server = new McpServer({ name: "adaptive-example", version: "0.1.0" });
-server.registerResource("tools-metadata", "dev.adaptivemcp/tools-metadata", {
+server.registerResource("tools-metadata", TOOLS_METADATA_RESOURCE_URI, {
   title: "Adaptive MCP Tools Metadata",
   mimeType: "application/yaml",
 }, async (uri) => ({ contents: [{ uri: uri.href, mimeType: "application/yaml", text: runtime.extension.resourceText() }] }));
@@ -63,3 +70,20 @@ Because the resource is registered through the standard MCP resource mechanism,
 any host that does not understand `dev.adaptivemcp/` simply ignores it. Clients
 that do understand it read the YAML, apply the learned metadata, and report
 observations back into their local store. No changes to MCP itself are required.
+
+## Adoption
+
+The extension is published by a real third-party server and consumed by a real
+client:
+
+- **[QC](https://github.com/adaptivemcp/qc)** (QueryCleaner) — a Python MCP
+  server that publishes `dev.adaptivemcp://tools-metadata` with per-tool policy
+  (risk level and `require_approval`) derived from its own operation model. It
+  advertises the resource by existence via `resources/list` rather than
+  `capabilities.extensions`, the same graceful-degradation approach the example
+  server uses.
+- **The [Adaptive MCP agent](https://github.com/adaptivemcp/agent)** — reads the
+  server's tools-metadata via `--server-policy` and applies it as a **floor**:
+  server-governed policy can raise a gate (e.g. force `require_approval` on a
+  destructive tool) but never lower one the client's own learned metadata or
+  host configuration has already set.

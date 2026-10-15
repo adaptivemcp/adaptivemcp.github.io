@@ -16,18 +16,20 @@ loop locally, and standing up the MCP server + client example.
 
 ### From npm
 
-All twelve `@adaptivemcp/*` packages are available on npm under the
+All thirteen `@adaptivemcp/*` packages are available on npm under the
 [`@adaptivemcp` organization](https://www.npmjs.com/org/adaptivemcp). The
 core building blocks are `spec`, `memory`, `telemetry`, `evaluation`, and
 `extension`; `runtime` wires them into one loop; `routing`, `orchestration`,
-`approval`, and `thin-client` are the client-side executors; and `middleware`
-and `mcp-binary` are the pluggable middleware chain and its CLI-binary wrapper:
+`approval`, `thin-client`, and `graph-analysis` are the client-side executors;
+and `middleware` and `mcp-binary` are the pluggable middleware chain and its
+CLI-binary wrapper:
 
 ```bash
 npm i @adaptivemcp/spec @adaptivemcp/memory @adaptivemcp/telemetry \
       @adaptivemcp/evaluation @adaptivemcp/extension @adaptivemcp/runtime \
       @adaptivemcp/routing @adaptivemcp/orchestration \
       @adaptivemcp/approval @adaptivemcp/thin-client \
+      @adaptivemcp/graph-analysis \
       @adaptivemcp/middleware @adaptivemcp/mcp-binary
 ```
 

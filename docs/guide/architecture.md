@@ -4,9 +4,11 @@ description: How Adaptive MCP learns tool behavior from real signal — the even
 
 # Architecture
 
-The adaptation loop runs entirely on the client/runtime side. Adaptive MCP is a
-learning layer over MCP primitives — it does not replace MCP, redefine tools, or
-introduce new protocol abstractions.
+The adaptation loop runs wherever the **store** lives; it is not defined by a
+deployment side. A stateless server publishes static `annotation` only — the
+observed behavior is client-owned — so the loop belongs next to whoever holds
+the SQLite store. Adaptive MCP is a learning layer over MCP primitives — it does
+not replace MCP, redefine tools, or introduce new protocol abstractions.
 
 ## The loop
 

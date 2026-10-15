@@ -34,9 +34,9 @@ ignores it.
 - @adaptivemcp/thin-client — Client-side execution loop + graph tracking
 - @adaptivemcp/middleware — Pluggable middleware chain
 - @adaptivemcp/mcp-binary — CLI-binary -> MCP-server stdio wrapper
+- @adaptivemcp/graph-analysis — Execution-graph intelligence (critical path, bottlenecks, cascades, forecasting)
 
-Not yet published: @adaptivemcp/graph-analysis (execution-graph intelligence),
-@adaptivemcp/opencode-plugin (experimental OpenCode host adapter).
+Not yet published: @adaptivemcp/opencode-plugin (experimental OpenCode host adapter).
 
 ## Source
 

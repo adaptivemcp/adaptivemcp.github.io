@@ -63,13 +63,8 @@ for the full release runbook).
 
 ## Not yet published
 
-- **`@adaptivemcp/graph-analysis`** — execution-graph intelligence
-  (`GraphAnalyzer`: critical path, bottlenecks, failure/causal cascades,
-  anti-patterns, workflow forecasting). Implemented and tested, and already a
-  dependency of `routing`, `evaluation`, and `@adaptivemcp/opencode-plugin`, but
-  not yet in `PUBLISHABLE_PACKAGES`.
 - **`@adaptivemcp/opencode-plugin`** — an experimental adapter mapping OpenCode's
-  V1 hook system (`tool.execute.before` / `tool.execute.after` / `event` /
+  hook system (`tool.execute.before` / `tool.execute.after` / `event` /
   `dispose`) onto Adaptive MCP telemetry and middleware. Unit-tested against the
   documented hook shape, not yet run against a live host.
 
@@ -84,7 +79,7 @@ completion and the tool execution, and consumes every `@adaptivemcp/*` library.
 - The core adaptation loop (telemetry → evaluation → memory → extension), the
   middleware chain, routing / orchestration / approval, and the execution graph
   are implemented and tested.
-- `graph-analysis` and `opencode-plugin` are implemented but not yet published.
+- `opencode-plugin` is implemented but not yet published.
 - See the
   [roadmap](https://github.com/kemalelmizan/adaptive-mcp/blob/main/docs/ROADMAP.md)
   for the phased status and open work.
