@@ -61,4 +61,4 @@ generates the sitemap, and publishes to GitHub Pages. The custom domain
 
 - [`kemalelmizan/adaptive-mcp`](https://github.com/kemalelmizan/adaptive-mcp) — the packages, examples, SEP, and release flow
 - [`adaptivemcp/agent`](https://github.com/adaptivemcp/agent) — the product implementation (CLI/TUI agent)
-- `adaptivemcp/qc` — QueryCleaner, a third-party MCP server publishing the `tools-metadata` resource (private during pre-release)
+- [`adaptivemcp/qc`](https://github.com/adaptivemcp/qc) — QueryCleaner, a third-party MCP server publishing the `tools-metadata` resource

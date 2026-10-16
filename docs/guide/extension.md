@@ -76,13 +76,12 @@ observations back into their local store. No changes to MCP itself are required.
 The extension is published by a real third-party server and consumed by a real
 client:
 
-- **QC** (QueryCleaner) — a Python MCP server that publishes
-  `dev.adaptivemcp://tools-metadata` with per-tool policy (risk level and
-  `require_approval`) derived from its own operation model. It advertises the
-  resource by existence via `resources/list` rather than
+- **[QC](https://github.com/adaptivemcp/qc)** (QueryCleaner) — a Python MCP
+  server that publishes `dev.adaptivemcp://tools-metadata` with per-tool policy
+  (risk level and `require_approval`) derived from its own operation model. It
+  advertises the resource by existence via `resources/list` rather than
   `capabilities.extensions`, the same graceful-degradation approach the example
-  server uses. (QC is not yet public; its repository is private during
-  pre-release.)
+  server uses.
 - **The [Adaptive MCP agent](https://github.com/adaptivemcp/agent)** — reads the
   server's tools-metadata via `--server-policy` and applies it as a **floor**:
   server-governed policy can raise a gate (e.g. force `require_approval` on a
