@@ -39,6 +39,7 @@ for the full release runbook).
 | `@adaptivemcp/thin-client` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/thin-client)](https://www.npmjs.com/package/@adaptivemcp/thin-client) | Minimal client-side execution loop for Adaptive MCP. |
 | `@adaptivemcp/middleware` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/middleware)](https://www.npmjs.com/package/@adaptivemcp/middleware) | Pluggable middleware chain for Adaptive MCP (Transform I/O, gate, inject-auth, observe). |
 | `@adaptivemcp/mcp-binary` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/mcp-binary)](https://www.npmjs.com/package/@adaptivemcp/mcp-binary) | Generic CLI-binary -> MCP-server stdio wrapper (the only sanctioned shell-out layer). |
+| `@adaptivemcp/opencode-plugin` | [![npm](https://img.shields.io/npm/v/@adaptivemcp/opencode-plugin)](https://www.npmjs.com/package/@adaptivemcp/opencode-plugin) | OpenCode plugin for Adaptive MCP - maps OpenCode hooks to Adaptive MCP telemetry and middleware |
 <!-- packages:published:end -->
 
 ## Responsibilities at a glance
@@ -59,14 +60,8 @@ for the full release runbook).
 | `@adaptivemcp/thin-client` | Minimal client-side execution loop for Adaptive MCP. |
 | `@adaptivemcp/middleware` | Pluggable middleware chain for Adaptive MCP (Transform I/O, gate, inject-auth, observe). |
 | `@adaptivemcp/mcp-binary` | Generic CLI-binary -> MCP-server stdio wrapper (the only sanctioned shell-out layer). |
+| `@adaptivemcp/opencode-plugin` | OpenCode plugin for Adaptive MCP - maps OpenCode hooks to Adaptive MCP telemetry and middleware |
 <!-- packages:responsibilities:end -->
-
-## Not yet published
-
-- **`@adaptivemcp/opencode-plugin`** — an experimental adapter mapping OpenCode's
-  hook system (`tool.execute.before` / `tool.execute.after` / `event` /
-  `dispose`) onto Adaptive MCP telemetry and middleware. Unit-tested against the
-  documented hook shape, not yet run against a live host.
 
 ## The agent
 
