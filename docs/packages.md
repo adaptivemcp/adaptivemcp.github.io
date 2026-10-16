@@ -74,7 +74,7 @@ completion and the tool execution, and consumes every `@adaptivemcp/*` library.
 - The core adaptation loop (telemetry → evaluation → memory → extension), the
   middleware chain, routing / orchestration / approval, and the execution graph
   are implemented and tested.
-- `opencode-plugin` is implemented but not yet published.
+- `opencode-plugin` is an OpenCode host adapter, proven live on OpenCode v2.0.26.
 - See the
   [roadmap](https://github.com/kemalelmizan/adaptive-mcp/blob/main/docs/ROADMAP.md)
   for the phased status and open work.
